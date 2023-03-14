@@ -103,6 +103,6 @@ function wpplugin_admin_extrascripts_adder($hook){
     if(!get_option('wpplugin_option')){
         add_option('wpplugin_option',$data);
     }
-    update_option('wpplugin_option',$data);
+    update_option('wpplugin_option',$databn);
  }
  bro bzerrorg
