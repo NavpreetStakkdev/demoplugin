@@ -1,0 +1,1 @@
+alert('welcome to plugin settings or menu page');
