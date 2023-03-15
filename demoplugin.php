@@ -31,41 +31,36 @@ function wpplugin_menu_page(){
 }
 function demoplugin_page_maker(){
     ?>
-    <div class="dhim">
-        <h1><?php  esc_html_e(get_admin_page_title()); ?></h1>
-        <p>this is page content.....</p>
-        <?php
-      $wpplugin_plugin_basename = plugin_basename( __FILE__ );
-      $wpplugin_plugin_dir_path = plugin_dir_path( __FILE__ );
-      $wpplugin_plugins_url_default = plugins_url();
-      $wpplugin_plugins_url = plugins_url( 'includes', __FILE__ );
-      $wpplugin_plugin_dir_url = plugin_dir_url( __FILE__ );
-    ?>
+    <div class="wrap">
+        <form method="post" action="options.php">
+            <?php settings_fields('wpplugin_form'); ?>
+            <?php do_settings_sections('wpplugin'); ?>
+            <?php do_settings_fields('wpplugin','wpplugin-section'); ?> 
+            <?php submit_button(); ?>
+        </form>
+    </div>
 
-    <ul>
-      <li>plugin_basename( __FILE__ ) - <?php echo $wpplugin_plugin_basename; ?></li>
-      <li>plugin_dir_path( __FILE__ ) - <?php echo $wpplugin_plugin_dir_path; ?></li>
-      <li>plugins_url() - <?php echo $wpplugin_plugins_url_default; ?></li>
-      <li>plugins_url( 'includes', __FILE__ ) - <?php echo $wpplugin_plugins_url; ?></li>
-      <li>plugin_dir_url( __FILE__ ) - <?php echo $wpplugin_plugin_dir_url; ?></li>
-      <li>define - <?php echo DEMOPLUGIN_DIRPATH ?></li>
-    </ul>
+   <?php
+   demoplugin_simple_page_maker();
+}
+function demoplugin_simple_page_maker(){
+    ?>
+    <h1>Manual form :</h1>
+      <div class="wpplugin_manual">
+        <form method="post" action="admin.php?page=wpplugin">
+        <label for="name">Name:</label>
+        <input type="text" name="name"><br><br>
+        <label for="email">Email:</label>
+        <input type="email" name="email"><br><br>
+        <label for="location">Location:</label>
+        <input type="text" name="location"><br><br>
+         <input id="submit" type="submit" value="Submit">
+        </form>
     </div>
     <?php
-    $string=get_option('wpplugin_option');
-    echo $string;
-    // $array=get_option('wpplugin_option');
-    // $table='<table><tr><th>name</th><th>location</th></tr>';
-    // foreach($array as $key => $value){
-    //   $table.='<tr>
-    //   <td>'.$key.'</td>
-    //   <td>'.$value.'</td>
-    // </tr>'
-    // }
-    // $table.='</table>';
-    // echo $table;
+
 }
-add_action('admin_init','wpplugin_admin_extrascripts_adder');
+
 
 add_action('admin_enqueue_scripts','wpplugin_admin_extrascripts_adder');
 function wpplugin_admin_extrascripts_adder($hook){
@@ -76,12 +71,12 @@ function wpplugin_admin_extrascripts_adder($hook){
         [],
         time()
     );
-    wp_enqueue_script(
-        'wpplugin-admin',
-        WPPLUGIN_URL.'admin/js/wpplugin-admin-script.js',
-        [],
-        time()
-    );
+//     // wp_enqueue_script(
+//     //     'wpplugin-admin',
+//     //     WPPLUGIN_URL.'admin/js/wpplugin-admin-script.js',
+//     //     [],
+//     //     time()
+//     // );
 }
  }
 
@@ -96,12 +91,66 @@ function wpplugin_admin_extrascripts_adder($hook){
 
 
 
- add_action('admin_init','wpplugin_option_adder');
- function wpplugin_option_adder(){
-    // $info = array("name"=>"preet", "location"=>"kharar");
-    $data='save option updated data';
-    if(!get_option('wpplugin_option')){
-        add_option('wpplugin_option',$data);
-    }
-    update_option('wpplugin_option',$data);
+ add_action('admin_init','wpplugin_page_registerer');
+ function wpplugin_page_registerer(){
+   register_setting('wpplugin_form','wpplugin_form');
+   add_settings_section('wpplugin-section','Current User Details','wpplugin_section_descriptor','wpplugin');
+   add_settings_field('wpplugin-form-name','Name','name_input','wpplugin','wpplugin-section');
+   add_settings_field('wpplugin-form-email','Email','email_input','wpplugin','wpplugin-section');
+   add_settings_field('wpplugin-form-location','Location','location_input','wpplugin','wpplugin-section');
+   register_setting('wpplugin_form','wpplugin_form');
+
  }
+ function wpplugin_section_descriptor(){
+    $name="";
+    $email="";
+    $location="";
+    $option=get_option('wpplugin_form');
+    if(isset($option['name'])){
+        $name=$option['name'];
+    
+    }
+    if(isset($option['email'])){
+        $email=$option['email'];
+    
+    }
+    if(isset($option['location'])){
+        $location=$option['location'];
+    
+    }
+
+    echo 'name:  '. $name.'<br>';
+    echo 'email:  '. $email.'<br>';
+    echo 'location:  '. $location.'<br>';
+    echo "<h3>Switch to another user</h3>";
+    echo '<h1 id="wpplugin_sett">Settings Api form :</h1>';
+ }
+ function name_input(){
+    $prevname="";
+    $option=get_option('wpplugin_form');
+    if(isset($option['name'])){
+        $prevname=$option['name'];
+    
+    }
+    echo '<input type="text" id="wpplugin_name" name="wpplugin_form[name]" value="'.$prevname.'"/>';
+}
+function email_input(){
+    $prevname="";
+    $option=get_option('wpplugin_form');
+    if(isset($option['email'])){
+        $prevname=$option['email'];
+    
+    }
+    echo '<input type="email" id="wpplugin_email" name="wpplugin_form[email]" value="'.$prevname.'"/>';
+  
+}
+function location_input(){
+    $prevname="";
+    $option=get_option('wpplugin_form');
+    if(isset($option['location'])){
+        $prevname=$option['location'];
+    
+    }
+    echo '<input type="text" id="wpplugin_location" name="wpplugin_form[location]" value="'.$prevname.'"/>';
+    
+}

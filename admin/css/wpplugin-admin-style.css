@@ -1,5 +1,26 @@
-.dhim {
-  background: aqua;
-  padding: 2rem;
-  width: 50%;
+.wpplugin_manual{
+  display:inline;
+  
 }
+.wpplugin_manual label{
+  color: black;
+ font-size:15px ;
+ font-weight:bolder;
+}
+.wpplugin_manual input{
+   position: absolute;
+   left: 150px;
+}
+.wpplugin_manual #submit{
+  background-color: black;
+  color: white;
+  border-radius: 100px;
+  position: absolute;
+   left: 100px;
+
+}
+#wpplugin_sett{
+  font-size:25px ;
+  font-weight: 600;
+}
+
