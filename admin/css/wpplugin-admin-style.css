@@ -1,26 +1,44 @@
-.wpplugin_manual{
-  display:inline;
+.demomain a{
+  display:inline-flex;
+   text-decoration: none;
+   color: white;
+   width: 125px;
+   height:125px;
+   margin-right: 50px;
+   background-color: teal;
+   justify-content: center;
+   align-items: center;
+}
+.demomain h1{
+  
+  color:teal;
+  font-weight: bolder;
+}
+.demomain label{
+  font-size: 15px;
+  color:black;
+  font-weight: bolder;
+ 
+}
+.demomain textarea{
+  width:50%; 
+  height:500px;
   
 }
-.wpplugin_manual label{
-  color: black;
- font-size:15px ;
- font-weight:bolder;
-}
-.wpplugin_manual input{
-   position: absolute;
-   left: 150px;
-}
-.wpplugin_manual #submit{
-  background-color: black;
+.demomainsubmit{
   color: white;
-  border-radius: 100px;
-  position: absolute;
-   left: 100px;
-
+  background-color: red;
+  border: none;
+  border-radius: 5px;
+  margin-top: 25px;
+  font-weight: bolder;
+  height: 35px;
+  width: 125px;
 }
-#wpplugin_sett{
-  font-size:25px ;
-  font-weight: 600;
+#htmlsub{
+  margin-left: 25%;
+}
+#imagesub{
+  margin-left: 20%;
 }
 
