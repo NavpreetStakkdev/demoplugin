@@ -53,7 +53,7 @@ function demoplugin_page_maker(){
      </form>
      <br>
 
-
+     
      <?php }elseif( $_GET['ref']=="image"){ ?>
       <form id="image" method="post" action="http://localhost/wordpress/wp-content/plugins/demoplugin/download.php" enctype="multipart/form-data">
         <h1>Import your image:</h1>
@@ -69,6 +69,10 @@ function demoplugin_page_maker(){
     </div>
 
    <?php
+   $myfile = fopen("abc.txt", "r");
+   $data=fread($myfile,filesize("abc.txt"));
+   fclose($myfile); 
+   var_dump($data);
 }
 
 
