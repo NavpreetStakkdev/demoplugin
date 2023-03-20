@@ -69,10 +69,12 @@ function demoplugin_page_maker(){
     </div>
 
    <?php
-   $myfile = fopen("abc.txt", "r");
-   $data=fread($myfile,filesize("abc.txt"));
+   $myfile = fopen("C:\\xampp\htdocs\wordpress\wp-content\plugins\demoplugin\abc.txt", "r");
+   $data=fread($myfile,filesize("C:\\xampp\htdocs\wordpress\wp-content\plugins\demoplugin\abc.txt")); //path masg structure is like that  //chances of error is in hashes after c:
+   $array=explode("\\","C:\\xampp\htdocs\wordpress\wp-content\plugins\demoplugin\abc.txt");
+   
    fclose($myfile); 
-   var_dump($data);
+   var_dump(end($array));
 }
 
 
